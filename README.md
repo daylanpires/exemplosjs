@@ -1,6 +1,6 @@
 # Descobrindo o JavaScript
 
-Este projeto foi desenvolvido como parte do curso "Descobrindo o JavaScript" do RPG0009. O objetivo é explorar diferentes aspectos do JavaScript no lado cliente, utilizando o DOM, trabalhando com JSON para transmissão de dados e introduzindo o framework Vue.js para construção dinâmica de elementos HTML.
+Este projeto foi desenvolvido como parte do curso de Desenvolvimento FullStack da Universidade Estácio de Sá. O objetivo é explorar diferentes aspectos do JavaScript no lado cliente, utilizando o DOM, trabalhando com JSON para transmissão de dados e introduzindo o framework Vue.js para construção dinâmica de elementos HTML.
 
 ## Funcionalidades
 
