@@ -31,7 +31,3 @@ Por fim, exploramos como realizar transmissão de dados utilizando JSON e consum
 ## Contribuições
 
 Contribuições são bem-vindas! Sinta-se à vontade para abrir uma issue ou enviar um pull request com melhorias ou correções.
-
-## Licença
-
-Este projeto está licenciado sob a [Licença MIT](LICENSE).
