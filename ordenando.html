@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ordenando com JavaScript e DOM</title>
+    <!-- Incluindo o Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Estilos CSS adicionais -->
+    <style>
+        .conteudo {
+            max-width: 500px;
+            margin: 0 auto; 
+            padding: 20px; 
+        }
+    </style>
+</head>
+<body>
+    <div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
+        <div class="conteudo">
+            <h1 class="text-center mb-4">Ordenando com JavaScript e DOM</h1>
+            <div>
+                <input type="number" id="valor" class="form-control mb-2" placeholder="Digite um valor">
+                <button class="btn btn-primary mr-2" onclick="add()">Adicionar</button>
+                <select id="algoritmo" class="form-control mb-2">
+                    <option value="bubble">Bubble Sort</option>
+                    <option value="selection">Selection Sort</option>
+                    <option value="quick">Quick Sort</option>
+                </select>
+                <button class="btn btn-primary mr-2" onclick="ordenar()">Ordenar</button>
+                <button class="btn btn-primary" onclick="misturar()">Misturar</button>
+            </div>
+            <ul id="valores" class="list-group mt-3"></ul>
+        </div>
+    </div>
+
+    <script src="ordenando.js"></script>
+</body>
+</html>

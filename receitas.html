@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Receitas</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body class="bg-warning">
+    <div class="container-fluid">
+        <h1>Catálogo de Receitas</h1>
+        <div id="pnlCatalogo" class="d-flex flex-wrap"></div>
+    </div>
+
+    <script>
+        const receitas = [
+            {
+                titulo: "Bolo de Chocolate",
+                imagem: "img/bolo-chocolate.jpg",
+                preparo: "1. Misture todos os ingredientes.\n2. Asse em forno pré-aquecido a 180°C por 40 minutos.",
+                ingredientes: ["3 ovos", "1 xícara de açúcar", "1/2 xícara de óleo", "1 xícara de chocolate em pó", "1 xícara de farinha de trigo", "1 xícara de água quente", "1 colher de fermento em pó"]
+            },
+            {
+                titulo: "Salada Caesar",
+                imagem: "img/salada-caesar.jpg",
+                preparo: "1. Misture a alface e o molho Caesar.\n2. Adicione os croutons e o queijo parmesão.",
+                ingredientes: ["Alface", "Tomate", "Croutons", "Queijo parmesão ralado", "Molho Caesar"]
+            },
+            {
+                titulo: "Sopa de Legumes",
+                imagem: "img/sopa-legumes.jpg",
+                preparo: "1. Cozinhe os legumes até ficarem macios.\n2. Bata no liquidificador até obter uma consistência cremosa.",
+                ingredientes: ["Batata", "Cenoura", "Abobrinha", "Cebola", "Alho", "Sal", "Pimenta", "Azeite", "Água"]
+            }
+        ];
+
+        function getListaIngredientes(ingredientes) {
+            return '<ul>' + ingredientes.map(ingrediente => `<li>${ingrediente}</li>`).join('') + '</ul>';
+        }
+
+        function getCard(receita) {
+            return `
+                <div class="card m-3" style="width: 18rem;">
+                    <img src="${receita.imagem}" class="card-img-top" alt="${receita.titulo}">
+                    <div class="card-body">
+                        <h5 class="card-title">${receita.titulo}</h5>
+                        <div class="card-text">${getListaIngredientes(receita.ingredientes)}</div>
+                        <hr>
+                        <p class="card-text">${receita.preparo}</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        function preencheCatalogo() {
+            const pnlCatalogo = document.getElementById('pnlCatalogo');
+            const htmlReceitas = receitas.map(receita => getCard(receita)).join('');
+            pnlCatalogo.innerHTML = htmlReceitas;
+        }
+
+        window.onload = preencheCatalogo;
+    </script>
+</body>
+</html>

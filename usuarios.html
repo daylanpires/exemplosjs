@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usuários de Teste via REST</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        h2{
+            color: white;
+            font-size: 15pt;
+            font-style: italic; 
+        }
+    </style>
+</head>
+<body class="bg-warning">
+    <div class="container">
+        <h1>Usuários de Teste via REST</h1>
+        <h2>Os usuários deste exemplo são fornecidos pela API de testes reqres.in</h2>
+        <div id="usuarios" class="row">
+            <div v-for="user in users" :key="user.id" class="col-md-4">
+                <div class="card mb-4">
+                    <img :src="user.avatar" class="card-img-top" alt="Imagem do usuário">
+                    <div class="card-body">
+                        <h5 class="card-title">{{user.first_name}} {{user.last_name}}</h5>
+                        <p class="card-text">{{user.email}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!-- Inclui o Vue.js para a funcionalidade dinâmica -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+    //Define a instância Vue.js
+        new Vue({
+            el: '#usuarios',
+            data: {
+                 // Define os dados da aplicação, incluindo a lista de usuários
+                users: [
+                    {id: 1, first_name: 'Emma', last_name: 'Wong', email: 'emma.wong@reqres.in', avatar: 'img/emma.jpg'},
+                    {id: 2, first_name: 'Janet', last_name: 'Weaver', email: 'janet.weaver@reqres.in', avatar: 'img/janet.jpg'},
+                    {id: 3, first_name: 'George', last_name: 'Bluth', email: 'george.bluth@reqres.in', avatar: 'img/george.jpg'}
+                ]
+            }
+        });
+    </script>
+</body>
+</html>
