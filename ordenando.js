@@ -1,117 +1,124 @@
-// Função swap: troca os valores de duas posições de um vetor
-const swap = (vetor, posicao1, posicao2) => {
-    [vetor[posicao1], vetor[posicao2]] = [vetor[posicao2], vetor[posicao1]];
+// Função para trocar os valores de duas posições em um vetor
+const swap = (arr, index1, index2) => {
+    [arr[index1], arr[index2]] = [arr[index2], arr[index1]];
 };
 
-// Função shuffle: embaralha os elementos de um vetor
-const shuffle = (vetor, quantidadeTrocas) => {
-    for (let i = 0; i < quantidadeTrocas; i++) {
-        const posicaoAleatoria1 = Math.floor(Math.random() * vetor.length);
-        const posicaoAleatoria2 = Math.floor(Math.random() * vetor.length);
-        swap(vetor, posicaoAleatoria1, posicaoAleatoria2);
+// Função para embaralhar os elementos de um vetor
+const shuffle = (arr, numSwaps) => {
+    for (let i = 0; i < numSwaps; i++) {
+        const index1 = Math.floor(Math.random() * arr.length);
+        const index2 = Math.floor(Math.random() * arr.length);
+        swap(arr, index1, index2);
     }
 };
 
-// Função bubble_sort: ordena um vetor de inteiros com o algoritmo Bubble Sort
-const bubble_sort = vetor => {
-    const n = vetor.length;
-    for (let i = 0; i < n - 1; i++) {
-        for (let j = 0; j < n - i - 1; j++) {
-            if (vetor[j] > vetor[j + 1]) {
-                swap(vetor, j, j + 1);
+// Função para ordenar um vetor de inteiros com o algoritmo Bubble Sort
+const bubble_sort = (arr) => {
+    const n = arr.length;
+    let swapped;
+    do {
+        swapped = false;
+        for (let i = 0; i < n - 1; i++) {
+            if (arr[i] > arr[i + 1]) {
+                swap(arr, i, i + 1);
+                swapped = true;
             }
         }
-    }
+    } while (swapped);
 };
 
-// Função selection_sort: ordena um vetor de inteiros utilizando o algoritmo Selection Sort
-const selection_sort = vetor => {
-    const n = vetor.length;
+// Função para ordenar um vetor de inteiros utilizando o algoritmo Selection Sort
+const selection_sort = (arr) => {
+    const n = arr.length;
     for (let i = 0; i < n - 1; i++) {
-        let menor = i;
+        let minIndex = i;
         for (let j = i + 1; j < n; j++) {
-            if (vetor[j] < vetor[menor]) {
-                menor = j;
+            if (arr[j] < arr[minIndex]) {
+                minIndex = j;
             }
         }
-        if (menor !== i) {
-            swap(vetor, i, menor);
+        if (minIndex !== i) {
+            swap(arr, i, minIndex);
         }
     }
 };
 
-// Função quick_sort: ordena um vetor de inteiros com o algoritmo Quick Sort, recursivo
-const quick_sort = (vetor, inicio = 0, fim = vetor.length - 1) => {
-    if (inicio < fim) {
-        const indicePivot = particionamento(vetor, inicio, fim);
-        quick_sort(vetor, inicio, indicePivot - 1);
-        quick_sort(vetor, indicePivot + 1, fim);
+// Função para ordenar um vetor de inteiros com o algoritmo Quick Sort
+const quick_sort = (arr, left = 0, right = arr.length - 1) => {
+    if (left < right) {
+        const pivotIndex = partition(arr, left, right);
+        quick_sort(arr, left, pivotIndex - 1);
+        quick_sort(arr, pivotIndex + 1, right);
     }
 };
 
-// Função particionamento: função de apoio ao quick_sort
-const particionamento = (vetor, inicio, fim) => {
-    const pivot = vetor[fim];
-    let i = inicio - 1;
-    for (let j = inicio; j < fim; j++) {
-        if (vetor[j] < pivot) {
+// Função de particionamento de apoio ao Quick Sort
+const partition = (arr, left, right) => {
+    const pivot = arr[right];
+    let i = left - 1;
+    for (let j = left; j < right; j++) {
+        if (arr[j] <= pivot) {
             i++;
-            swap(vetor, i, j);
+            swap(arr, i, j);
         }
     }
-    swap(vetor, i + 1, fim);
+    swap(arr, i + 1, right);
     return i + 1;
 };
 
-// Função para adicionar valor à lista
-function add() {
-    const valor = parseInt(document.getElementById('valor').value);
-    const lista = document.getElementById('valores');
-    const node = document.createElement('li');
-    const textNode = document.createTextNode(valor);
-    node.appendChild(textNode);
-    lista.appendChild(node);
-}
+// Função para adicionar um valor à lista de valores
+const add = () => {
+    const valueInput = document.getElementById('valor');
+    const value = parseInt(valueInput.value);
+    if (!isNaN(value)) {
+        const valuesList = document.getElementById('valores');
+        const li = document.createElement('li');
+        li.appendChild(document.createTextNode(value));
+        valuesList.appendChild(li);
+    }
+    valueInput.value = '';
+};
 
-// Função para ordenar a lista
-function ordenar() {
-    const lista = document.getElementById('valores');
-    const valores = Array.from(lista.children).map(item => parseInt(item.innerHTML));
-    const tipoOrdenacao = document.getElementById('ordenacao').value;
-    
-    switch (tipoOrdenacao) {
-        case 'bubble_sort':
-            bubble_sort(valores);
+// Função para ordenar os valores na lista
+const ordenar = () => {
+    const valuesList = document.getElementById('valores');
+    const values = Array.from(valuesList.children).map(li => parseInt(li.textContent));
+    const algorithm = document.getElementById('algoritmo').value;
+
+    switch (algorithm) {
+        case 'bubble':
+            bubble_sort(values);
             break;
-        case 'selection_sort':
-            selection_sort(valores);
+        case 'selection':
+            selection_sort(values);
             break;
-        case 'quick_sort':
-            quick_sort(valores);
+        case 'quick':
+            quick_sort(values);
             break;
         default:
             break;
     }
 
-    lista.innerHTML = '';
-    valores.forEach(valor => {
-        const node = document.createElement('li');
-        const textNode = document.createTextNode(valor);
-        node.appendChild(textNode);
-        lista.appendChild(node);
+    // Atualiza a lista de valores ordenados
+    valuesList.innerHTML = '';
+    values.forEach(value => {
+        const li = document.createElement('li');
+        li.appendChild(document.createTextNode(value));
+        valuesList.appendChild(li);
     });
-}
+};
 
-// Função para misturar a lista
-function misturar() {
-    const lista = document.getElementById('valores');
-    const valores = Array.from(lista.children).map(item => parseInt(item.innerHTML));
-    shuffle(valores, valores.length * 2);
-    lista.innerHTML = '';
-    valores.forEach(valor => {
-        const node = document.createElement('li');
-        const textNode = document.createTextNode(valor);
-        node.appendChild(textNode);
-        lista.appendChild(node);
+// Função para misturar os valores na lista
+const misturar = () => {
+    const valuesList = document.getElementById('valores');
+    const values = Array.from(valuesList.children).map(li => parseInt(li.textContent));
+    shuffle(values, values.length * 2); // Embaralha o vetor
+
+    // Atualiza a lista de valores misturados
+    valuesList.innerHTML = '';
+    values.forEach(value => {
+        const li = document.createElement('li');
+        li.appendChild(document.createTextNode(value));
+        valuesList.appendChild(li);
     });
-}
+};
